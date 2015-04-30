@@ -1,0 +1,5 @@
+{
+    "libs": [
+        "/usr/src/nmbls/ouput/libsqlite.so"
+    ]
+}

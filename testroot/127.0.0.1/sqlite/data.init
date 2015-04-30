@@ -1,0 +1,7 @@
+
+CREATE TABLE IF NOT EXISTS phones(age INTEGER, id TEXT, name TEXT, snippet TEXT);
+
+INSERT INTO phones (age, id, name, snippet) VALUES(2, '5700', 'Samsung Blah', 'The coolest phone yet');
+INSERT INTO phones (age, id, name, snippet) VALUES(3, '59900', 'Samsung bling', 'The coolest phone yet');
+INSERT INTO phones (age, id, name, snippet) VALUES(4, '5300', 'Samsung young', 'The coolest phone yet');
+INSERT INTO phones (age, id, name, snippet) VALUES(1, '5400', 'Samsung rubbish', 'Even more cooler');
