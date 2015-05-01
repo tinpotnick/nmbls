@@ -1,4 +1,4 @@
-# nmbls
+# NMBLS
 
 ## A Nimble Web Server.
 
@@ -28,7 +28,7 @@ The capability both in terms of performance and functionality of a modern browse
 * test.php was written in around 10 lines of code to connect to SQLite DB and then format into a JSON format for client
 * nmbls has all the logic in C++ to connect to DB and output data in JSON
 
-nmbls served 3 rows of data in ~260uS compared to ~500uS with nginx/PHP-FPM. nmbls was considerably simpler to setup. Calling session_start() in php increased this to ~650uS so the processing time increases quickly depending on what appears in the script.
+NMBLS served 3 rows of data in ~260uS compared to ~500uS with nginx/PHP-FPM. nmbls was considerably simpler to setup. Calling session_start() in php increased this to ~650uS so the processing time increases quickly depending on what appears in the script.
 
 BTW, it would be good to get the ~250uS even fast - which I think is doable. If there are any performance experts out there with any pointers...
 
