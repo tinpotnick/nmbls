@@ -8,7 +8,7 @@ public:
   roothandler() : nmbls::nmblshandler()
   {
     this->uri = "";
-  };
+  }
 
   virtual void on( httpdoc &in, httpdoc &out )
   {
