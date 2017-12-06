@@ -122,7 +122,3 @@ std::string base64_decode(std::string const& encoded_string) {
 
   return ret;
 }
-
-
-
-
