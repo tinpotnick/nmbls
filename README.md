@@ -84,7 +84,7 @@ This is first attempt at structure. I would like to get it even simpler. But thi
 class roothandler : public nmbls::nmblshandler
 {
 public:
-  roothandler() : nmbls::nmblshandler( "" )
+  roothandler() : nmbls::nmblshandler()
   {
     // Not needed but as an example.
     this->uri = "";
