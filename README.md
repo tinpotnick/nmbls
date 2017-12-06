@@ -2,6 +2,8 @@
 
 ## A Nimble Web Server.
 
+This work is being moved into my new project fasterer. 
+
 A very fast, compact, efficient web server written in C++. Can serve static files as well data. The design pushes more functionality to HTML5 whilst providing back end functions like files, data, security and communications (websockets). Designed for CRUD applications as well as frameworks like angular.js.
 
 The source in git at the moment is a working version, but very early with no documentation. It can handle GET requests and server files and has one module written to serve data from an SQLite database. Conversion to JSON happens in the server so is not passed off to any script to slow down performance.
@@ -44,6 +46,3 @@ nmbls was designed to scale well. As well as enforcing the design pattern onto t
 
 Examples, to come soon, watch this space web site to come soon.
 
-Thank you for reading
-
-Nick Knight
