@@ -1,5 +1,5 @@
 
-INCLUDE = ../src
+INCLUDE = /usr/include
 
 CXX = g++
 CXXFLAGS += -Wall -g -O0 -fPIC -I$(INCLUDE)
@@ -7,7 +7,7 @@ LDFLAGS = -lboost_system -lnmbls
 
 RM = rm -f
 
-TARGET = project
+TARGET = hellowworld
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 
@@ -17,4 +17,4 @@ $(TARGET): $(OBJECTS)
 	$(CXX) ${LDFLAGS} $^ -o $@
 
 clean:
-	$(RM) *.o *.so
+	$(RM) *.o hellowworld

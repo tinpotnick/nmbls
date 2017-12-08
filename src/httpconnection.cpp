@@ -172,7 +172,7 @@ void nmbls::httpconnection::handlerequest( httpdoc &in )
     httpdoc out;
     out.addheader( "content-type", "text/html; charset=utf-8" );
 
-    handler->on( in, out );
+    handler->onhttp( in, out );
     this->postdocument( out.generatehttpdoc() );
   }
   catch( nmbls::httpexception e )

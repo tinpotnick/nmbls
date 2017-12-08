@@ -13,7 +13,7 @@
 
 namespace nmbls
 {
-  void startserer( int argc, const char* argv[] );
+  void startserver( int argc, const char* argv[] );
   void stopserver( void );
   void damonizeserver( void );
 
@@ -23,10 +23,10 @@ namespace nmbls
     nmblshandler() {}
     ~nmblshandler() {}
 
-    virtual void on( httpdoc &in, httpdoc &out ) { std::cout << "Unhandled GET request" << std::endl; };
-    virtual void on( httpdoc &in, httpconnection &connection ) { std::cout << "Unhandled WS Upgrade" << std::endl; };
-    virtual void on( httpconnection &connection ) { std::cout << "Unhandled WS Close" << std::endl; };
-    virtual void on( websocketframe &frame, httpconnection &connection ) { std::cout << "Unhandled WS Frame" << std::endl; };
+    virtual void onhttp( httpdoc &in, httpdoc &out ) { std::cout << "Unhandled HTTP request" << std::endl; };
+    virtual void onwsupgrade( httpdoc &in, httpconnection &connection ) { std::cout << "Unhandled WS Upgrade" << std::endl; };
+    virtual void onwsclose( httpconnection &connection ) { std::cout << "Unhandled WS Close" << std::endl; };
+    virtual void onwsframe( websocketframe &frame, httpconnection &connection ) { std::cout << "Unhandled WS Frame" << std::endl; };
 
     std::string uri;
   };

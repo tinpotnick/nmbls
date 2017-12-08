@@ -23,19 +23,20 @@
 
 namespace nmbls
 {
+
   /* our server */
   boost::asio::io_service io_service;
 
   /*******************************************************************************
-  Class: nmbls
+  Class: service
   Description: Listen for new connections and spawn new object to handle.
   Date: 15.11.2017
   Author: Nick Knight
   *******************************************************************************/
-  class nmbls
+  class service
   {
   public:
-  	nmbls(boost::asio::io_service& io_service)
+  	service(boost::asio::io_service& io_service)
   		: acceptor_(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), HTTPLISTENPORT))
   	{
   		start_accept();
@@ -48,7 +49,7 @@ namespace nmbls
   			httpconnection::create(acceptor_.get_io_service());
 
   		acceptor_.async_accept(new_connection->socket(),
-  			boost::bind(&nmbls::handle_accept, this, new_connection,
+  			boost::bind(&service::handle_accept, this, new_connection,
   			boost::asio::placeholders::error));
   	}
 
@@ -181,7 +182,7 @@ namespace nmbls
   Date: 15.11.2017
   Author: Nick Knight
   *******************************************************************************/
-  void startserer( int argc, const char* argv[] )
+  void startserver( int argc, const char* argv[] )
   {
     bool debug = false;
 
@@ -208,7 +209,7 @@ namespace nmbls
 
   	try
   	{
-  		nmbls server(io_service);
+  		service server(io_service);
   		io_service.run();
   	}
   	catch (std::exception& e)
@@ -220,4 +221,5 @@ namespace nmbls
   	std::cout << "Cleaning up" << std::endl;
   	return;
   }
+
 }

@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include "nmbls.h"
+#include <nmbls/nmbls.h>
 
 class roothandler : public nmbls::nmblshandler
 {
@@ -10,7 +10,7 @@ public:
     this->uri = "";
   }
 
-  virtual void on( httpdoc &in, httpdoc &out )
+  virtual void onhttp( httpdoc &in, httpdoc &out )
   {
     out.body << "Hello World";
   }
@@ -25,6 +25,6 @@ Author: Nick Knight
 int main( int argc, const char* argv[] )
 {
   nmbls::addhandler( new roothandler() );
-  nmbls::startserer( argc, argv );
+  nmbls::startserver( argc, argv );
 	return 0;
 }

@@ -3,4 +3,4 @@
 *.o
 *.so
 
-project/project
+examples/helloworld/hellowworld
