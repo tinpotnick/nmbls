@@ -90,7 +90,7 @@ public:
     this->uri = "";
   }
 
-  virtual void on( httpdoc &in, httpdoc &out )
+  virtual void onhttp( httpdoc &in, httpdoc &out )
   {
     out.body << "Hello World";
   }
@@ -99,12 +99,12 @@ public:
 int main( int argc, const char* argv[] )
 {
   nmbls::addhandler( new roothandler() );
-  nmbls::startserer( argc, argv );
+  nmbls::startserver( argc, argv );
   return 0;
 }
 ```
 
-This example can be found in the project sub directory. compile it using make. This will create the project executable. This can be run with ./project --debug if you want to see what is going on. If you run ./project it will daemonize the program.
+This example can be found in the examples sub directory - helloworld. compile it using make. This will create the project executable. This can be run with ./project --debug if you want to see what is going on. If you run ./hellowworld it will daemonize the program.
 
 # Timing examples
 
