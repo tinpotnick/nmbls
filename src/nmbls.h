@@ -10,6 +10,7 @@
 #include "httpdoc.h"
 #include "httpconnection.h"
 #include "websocketframe.h"
+#include "simpletemplate.h"
 
 namespace nmbls
 {
