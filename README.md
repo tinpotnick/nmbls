@@ -84,7 +84,7 @@ This is first attempt at structure. I would like to get it even simpler. But thi
 class roothandler : public nmbls::nmblshandler
 {
 public:
-  roothandler() : nmbls::nmblshandler()
+  roothandler()
   {
     // Not needed but as an example.
     this->uri = "";
@@ -105,6 +105,23 @@ int main( int argc, const char* argv[] )
 ```
 
 This example can be found in the examples sub directory - helloworld. compile it using make. This will create the project executable. This can be run with ./project --debug if you want to see what is going on. If you run ./hellowworld it will daemonize the program.
+
+## Simple Template
+
+nmbls supports basic templates. It can merge a boost::ptree with a template to render text - which may typically be used to serve HTML files or maybe other type of data such configuration files.
+
+Simple Template supports nested if, and for loops.
+
+```
+{{ message }}.
+Thank you for visiting my web page.
+Today's weather is {{ weather }}.
+{{ if weather == sunny }}
+Days like today make me happy.
+{{ end }}
+```
+
+The Hello World example contains an example of Simple Template.
 
 # Timing examples
 
