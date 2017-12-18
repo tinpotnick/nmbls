@@ -8,6 +8,9 @@
 
 namespace nmbls
 {
+  class simpletemplatechunk;
+  typedef std::list< simpletemplatechunk > simpletemplatechunklist;
+
   class simpletemplatechunk
   {
   public:
@@ -15,14 +18,15 @@ namespace nmbls
     std::string text;
     std::vector< std::string > command;
     simpletemplatechunktype chunktype;
-  };
 
-  typedef std::list< simpletemplatechunk > simpletemplatechunklist;
+    simpletemplatechunklist::iterator pair;
+  };
 
   class simpletemplate
   {
   private:
     simpletemplatechunklist chunks;
+    std::list < simpletemplatechunklist::iterator > startchunks;
 
     void entertoken( std::string &simpletemplate );
     simpletemplatechunklist::iterator enterfor( boost::property_tree::ptree &tree, simpletemplatechunklist::iterator start, std::string &out );
