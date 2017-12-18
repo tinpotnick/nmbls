@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <nmbls/nmbls.h>
 
-#include <lua.hpp>
-
 /*******************************************************************************
 Class: roothandler
 Description: Most basic of Hello Wrold handler.
