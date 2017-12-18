@@ -88,5 +88,5 @@ int main( int argc, const char* argv[] )
   nmbls::addhandler( new roothandler() );
   nmbls::addhandler( new templatehandler() );
   nmbls::startserver( argc, argv );
-	return 0;
+  return 0;
 }
