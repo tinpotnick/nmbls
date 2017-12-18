@@ -1,5 +1,6 @@
 #include <iostream>
 #include <boost/algorithm/string.hpp>
+#include <list>
 #include "simpletemplate.h"
 
 /*******************************************************************************
@@ -11,6 +12,9 @@ Author: Nick Knight
 void nmbls::simpletemplate::compile( std::string simpletemplate )
 {
   std::size_t tokenpos;
+  this->startchunks.clear();
+  this->chunks.clear();
+
   while ( simpletemplate.size() > 0 )
   {
     simpletemplatechunk nextchunk;
@@ -43,6 +47,7 @@ void nmbls::simpletemplate::entertoken( std::string &simpletemplate )
 {
   std::size_t pos;
   pos = simpletemplate.find( "}}");
+  bool isstartchunk = false;
 
   if ( pos == std::string::npos )
   {
@@ -60,21 +65,50 @@ void nmbls::simpletemplate::entertoken( std::string &simpletemplate )
 
   boost::split( nextchunk.command, nextchunk.text, boost::is_any_of( "\t " ) );
 
-  if ( "for" == nextchunk.command[ 0 ] )
-  {
-    nextchunk.chunktype = simpletemplatechunk::simpletemplatechunktype::chunktypefor;
-  }
-  else if ( "if" == nextchunk.command[ 0 ] )
-  {
-    nextchunk.chunktype = simpletemplatechunk::simpletemplatechunktype::chunktypeif;
-  }
-  else if ( "end" == nextchunk.command[ 0 ] )
-  {
-    nextchunk.chunktype = simpletemplatechunk::simpletemplatechunktype::chunktypeend;
-  }
+  std::string primarycommand = nextchunk.command[ 0 ];
   nextchunk.command.erase( nextchunk.command.begin() );
 
-  this->chunks.push_back( nextchunk );
+  if ( "for" == primarycommand )
+  {
+    nextchunk.chunktype = simpletemplatechunk::simpletemplatechunktype::chunktypefor;
+    isstartchunk = true;
+
+    this->chunks.push_back( nextchunk );
+  }
+  else if ( "if" == primarycommand )
+  {
+    nextchunk.chunktype = simpletemplatechunk::simpletemplatechunktype::chunktypeif;
+    isstartchunk = true;
+
+    this->chunks.push_back( nextchunk );
+  }
+  else if ( "end" == primarycommand )
+  {
+    std::list < simpletemplatechunklist::iterator >::iterator laststart = this->startchunks.end();
+    --laststart;
+
+    nextchunk.chunktype = simpletemplatechunk::simpletemplatechunktype::chunktypeend;
+    nextchunk.pair = *laststart;
+
+    this->startchunks.pop_back();
+    this->chunks.push_back( nextchunk );
+
+    simpletemplatechunklist::iterator newitem = this->chunks.end();
+    --newitem;
+
+    (*laststart)->pair = newitem;
+  }
+  else
+  {
+    this->chunks.push_back( nextchunk );
+  }
+
+  if ( true == isstartchunk )
+  {
+    simpletemplatechunklist::iterator laststart = this->chunks.end();
+    --laststart;
+    this->startchunks.push_back( laststart );
+  }
 }
 
 /*******************************************************************************
@@ -182,7 +216,6 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
   std::vector < std::string > parts;
   boost::split( parts, command, boost::is_any_of( "!=<>" ) );
   simpletemplatechunklist::iterator it;
-  std::string dummy;
 
   std::string leftstr, rightstr, leftstrval, rightstrval;
   double leftstrd, rightstrd;
@@ -190,6 +223,7 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
   leftstr = parts[ 0 ];
   rightstr = parts[ parts.size() - 1 ];
 
+  simpletemplatechunklist::iterator endif = start->pair;
   start++;
 
   if ( std::string::npos != command.find( "==" ) )
@@ -203,7 +237,8 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
     }
     else
     {
-      it = this->render( tree, start, dummy );
+      it = endif;
+      it++;
     }
   }
   else if ( std::string::npos != command.find( "!=" ) )
@@ -213,7 +248,8 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
 
     if ( rightstrval == leftstrval )
     {
-      it = this->render( tree, start, dummy );
+      it = endif;
+      it++;
     }
     else
     {
@@ -231,7 +267,8 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
     }
     else
     {
-      it = this->render( tree, start, dummy );
+      it = endif;
+      it++;
     }
   }
   else if ( std::string::npos != command.find( ">=" ) )
@@ -245,7 +282,8 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
     }
     else
     {
-      it = this->render( tree, start, dummy );
+      it = endif;
+      it++;
     }
   }
   else if ( std::string::npos != command.find( "<" ) )
@@ -259,7 +297,8 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
     }
     else
     {
-      it = this->render( tree, start, dummy );
+      it = endif;
+      it++;
     }
   }
   else if ( std::string::npos != command.find( ">" ) )
@@ -273,7 +312,8 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
     }
     else
     {
-      it = this->render( tree, start, dummy );
+      it = endif;
+      it++;
     }
   }
   else
@@ -286,7 +326,8 @@ nmbls::simpletemplatechunklist::iterator nmbls::simpletemplate::enterif( boost::
     }
     else
     {
-      it = this->render( tree, start, dummy );
+      it = endif;
+      it++;
     }
   }
 

@@ -4,7 +4,7 @@
 
 /*******************************************************************************
 Class: roothandler
-Description: Most basic of Hello Wrold handler.
+Description: Most basic of Hello World handler.
 Date: 15.11.2017
 Author: Nick Knight
 *******************************************************************************/
@@ -58,15 +58,20 @@ public:
 {{ message }}.
 Thank you for visiting my web page.
 Today's weather is {{ weather }}.
+{{ if weather == sunny }}
+I like days like to today.
+I can also count to 10: {{ for i = 1:10 }} {{ i }} {{ end }}
+{{ end }}
 )d" );
 
   }
 
   virtual void onhttp( httpdoc &in, httpdoc &out )
   {
+    std::string weather = in.getqueryvalue( "weather" );
     boost::property_tree::ptree tree;
     tree.put( "message", "Hello World" );
-    tree.put( "weather", "sunny" );
+    tree.put( "weather", weather );
 
     out.body << outputtemplate.render( tree );
   }
